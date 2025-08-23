@@ -1,0 +1,38 @@
+<div class="container ">
+ <div class="table-responsive mt-3" *ngIf="isLoggedIn() && Role ==='admin'; else userContent">
+    <div class="text-end mb-3" >
+    <button mat-raised-button color="primary" routerLink="/add-category">
+      <mat-icon>add</mat-icon> Add category
+    </button>
+  </div>
+    <table class="table table-bordered table-striped table-hover shadow text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>No</th>
+          <th>Catagory</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cat of categoryList; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{cat.name}}</td>
+          <td >
+            <button mat-icon-button color="primary" matTooltip="edit Catagory"
+             [routerLink]="['/edit-category',cat._id]">
+              <mat-icon>edit</mat-icon>
+            </button></td>
+           <td><button mat-icon-button color="warn" matTooltip="delete Catagory" (click)="onDelete(cat._id);">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+    </tbody>
+</table>
+</div> 
+   
+</div>
+ <ng-template #userContent >
+     <app-not-found ></app-not-found>
+  </ng-template>

@@ -1,0 +1,47 @@
+<div class="container my-4" *ngIf="cartItems.length > 0; else emptyCart">
+  <h2 class="text-center">🛒 Cart </h2>
+
+  <table class="table table-bordered mt-3 text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>photo</th>
+        <th>product</th>
+        <th>price</th>
+        <th>quantity</th>
+        <th>total</th>
+        <th>delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems">
+        <td><img [src]="item.image" width="50"></td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price | currency :' EGP ' }}</td>
+        <td>
+          <input type="number" min="1" [value]="item.quantity"
+       (change)="onQuantityChange($event, item._id)"
+       class="form-control" style="width: 80px;" />
+
+        </td>
+        <td>{{ item.price * item.quantity | currency :' EGP ' }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="removeItem(item._id)">
+             <mat-icon>delete</mat-icon></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-end mt-3">
+    <h4> total price : {{ total | currency:' EGP ' }}</h4>
+    <button class="btn btn-success mt-2" routerLink="/place-order">🧾 place-order</button>
+  </div>
+</div>
+
+<ng-template #emptyCart>
+  <div class="text-center mt-5">
+    <h3>🚫 cart impty </h3>
+    <a routerLink="/products" class="btn btn-primary mt-3">🔙 back to products </a>
+  </div>
+</ng-template>
+

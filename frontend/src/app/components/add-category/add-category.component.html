@@ -1,0 +1,13 @@
+
+<div class="container d-flex justify-content-center align-items-center">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" *ngIf="isLoggedIn() && Role ==='admin'; else userContent">
+     <h2 class="text-center"> add Category</h2>
+    <div class="form-group mt-2">
+      <input type="text" class="form-control" formControlName="name" placeholder="create..." />
+    </div>
+    <button type="submit" class="btn btn-success w-100 mt-2 ">add</button>
+  </form></div>
+
+  <ng-template #userContent>
+     <app-not-found></app-not-found>
+  </ng-template>

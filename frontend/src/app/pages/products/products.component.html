@@ -1,0 +1,111 @@
+<div class="container">
+  <h2 class="mb-4 text-center">📦  Product List</h2>
+
+<div class="cart-wrapper" *ngIf="Role === 'user' && isLoggedIn()">
+  <a routerLink="/cart" routerLinkActive="active-link" class="cart-link" matTooltip="Cart" >
+    🛒
+    <span class="badge" *ngIf="cartCount$ | async as count">
+      {{ count }}
+    </span>
+  </a>
+</div>
+
+<div class="row mb-3">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Category </mat-label>
+      <mat-select [(value)]="selectedCategoryId" (selectionChange)="filterByCategory()">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category._id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+</div>
+
+<mat-form-field appearance="fill" class="w-100 mb-3">
+  <mat-label>  Search Product ... 🔍</mat-label>
+  <input matInput [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Product name ">
+</mat-form-field>
+
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="accent" class="m-3"></mat-progress-bar>
+
+  
+  <div class="text-end mb-3" *ngIf="Role==='admin'">
+    <button mat-raised-button color="primary" routerLink="/addProduct">
+      <mat-icon>add</mat-icon> Add Product
+    </button>
+  </div>
+
+
+  <div class="table-responsive mt-3" *ngIf="Role === 'admin' && !isLoading && products.length">
+    <table class="table table-bordered table-striped table-hover shadow text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>No</th>
+          <th>Product</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+           <th>Catagory</th>
+          <th>Photo</th>
+          <th >Edit</th>
+          <th >Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }} EGP</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.category?.name }}</td>
+           <td><img *ngIf="product.image" [src]=" product.image" width="100" /></td>
+          <td >
+            <button mat-icon-button color="primary" matTooltip="edit product" 
+            [routerLink]="['/edit-product',product._id]">
+              <mat-icon>edit</mat-icon>
+            </button></td>
+           <td><button mat-icon-button color="warn" matTooltip="delete product" (click)="onDelete(product._id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+ <div class="row" *ngIf="(Role === 'user' || !Role) && !isLoading && products.length">
+  <div class="col-md-4 mb-4" *ngFor="let product of products">
+
+    <mat-card class="product-card h-100 d-flex flex-column justify-content-between">
+      <img mat-card-image [src]="product.image" 
+           alt="product image" class="product-img">
+           
+      <mat-card-content>
+        <ul style="list-style: none; margin-left: -20px;">
+          <li class="mt-3"><h3>🛒 Product : {{ product.name }}</h3></li>
+          <li><h3>📄 Description : {{ product.description }}</h3> </li>
+          <li><h3>💲 Price : {{ product.price }} EGP</h3></li>
+        </ul>
+      </mat-card-content>
+
+      <mat-card-actions *ngIf="Role === 'user'">
+        <button mat-raised-button color="primary" class="w-100" (click)="addToCart(product)">
+      🛒 Add To Cart 
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+
+  <div *ngIf="errorMsg" class="alert alert-danger mt-3 text-center">
+    {{ errorMsg }}
+  </div>
+  <div *ngIf="!isLoading && !products.length" class="text-center mt-4 alert alert-warning">
+    There are No Products ❌
+  </div>
+
+</div>
