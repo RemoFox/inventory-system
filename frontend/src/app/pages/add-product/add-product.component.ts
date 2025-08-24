@@ -74,7 +74,7 @@ onFileSelected(event: any): void {
         setTimeout(() => this.router.navigate(['/products']), 1000);
       },
       error: (err) => {
-       this.toastr.success('❌ added fail !', 'Error')
+       this.toastr.error('❌ added fail !', 'Error')
       }
     });
   }

@@ -43,7 +43,7 @@ isLoggedIn() {
         this.router.navigate(['/category-list']);
       },
       error: (err) => {
-        this.toastr.success('❌ added fail !', 'Error');
+        this.toastr.error('❌ added fail !', 'Error');
       }
     });
  }

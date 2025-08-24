@@ -34,7 +34,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +53,6 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     EditCategoryComponent,
     AddCategoryComponent,
     NotFoundComponent,
-  
 
   ],
 
@@ -76,6 +75,7 @@ NgChartsModule,
   MatSelectModule,
   MatTableModule,
    MatListModule,
+  MatProgressSpinnerModule,
 ToastrModule.forRoot({
   timeOut: 3000,
   positionClass: 'toast-top-right', // فوق على اليمين

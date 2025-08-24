@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-
+   isLoading = false;
   constructor(private fb: FormBuilder, private authService: AuthService,
     private router: Router,
     private toastr: ToastrService)
@@ -23,18 +23,20 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
-
+          this.isLoading=true
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
          //localStorage.setItem('token', res.token);
+        this.isLoading=false
         this.authService.saveToken(res.token);
           console.log('Login done!');
           this.toastr.success('✅ login successful!', 'Success',{positionClass: 'toast-top-right'});
-         this.router.navigate(['/home']);
+         this.router.navigate(['/products']);
 
       },
       error: (err) => {
-        this.toastr.success(' login fail !','Error');
+        this.toastr.error(' login fail !','Error');
+        this.isLoading=false
       }
     });
   }

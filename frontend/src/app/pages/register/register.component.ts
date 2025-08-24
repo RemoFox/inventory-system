@@ -32,7 +32,7 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.toastr.success('✅ Register fail !', 'Error');
+        this.toastr.error(' Register fail !', 'Error');
       }
     });
   }

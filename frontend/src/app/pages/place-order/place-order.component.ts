@@ -55,7 +55,7 @@ currentDate: Date = new Date();
       this.totalAmount = 0;
     },
     error: (err) => {
-      this.toastr.success(' send fail !', 'Error');
+      this.toastr.error(' send fail !', 'Error');
     }
   });
 }

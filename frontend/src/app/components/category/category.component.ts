@@ -36,7 +36,7 @@ next:(res)=>{
    this.toastr.success('✅ delete successful!', 'Success',{positionClass: 'toast-top-right'});
         this.router.navigate(['/category-list']);},
 error:(err)=>{
-this.toastr.success('❌ delete fail !', 'Error');
+this.toastr.error('❌ delete fail !', 'Error');
 }
 })
 
